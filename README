@@ -1,6 +1,7 @@
 A really simple Ruby wrapper for Semantic Hacker API (http://semantichacker.com)
 
-Code originally taken from http://hamishrickerby.com/2009/02/26/dealing-with-semantichacker-in-ruby/ and modified to add support for URI's, nicer abstraction, etc.
+Code originally taken from http://hamishrickerby.com/2009/02/26/dealing-with-semantichacker-in-ruby/
+and modified to add support for URI's, nicer abstraction, etc.
 
 See test.rb for example usage.
 
