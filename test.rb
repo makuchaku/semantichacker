@@ -10,7 +10,7 @@ if not ARGV[0]
   exit
 end
 
-sh = SemanticHacker.new("3ucknpc", :uri, ARGV[0])
+sh = SemanticHacker.new("YOUR_API_KEY", :uri, ARGV[0])
 
 puts "Signatures"
 sh.get_signatures.each do |s|
