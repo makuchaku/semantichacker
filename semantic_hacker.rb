@@ -2,6 +2,20 @@ require 'rubygems'
 require 'hpricot'
 require 'cgi'
 require 'open-uri'
+require 'active_record'
+
+
+ActiveRecord::Base.establish_connection( 
+  :adapter  => 'sqlite3',
+  :database => 'db/signatures.sqlite',
+  :pool     => 5,
+  :timeout  => 5000
+)
+
+# Dummy class to access Signatures DB
+class SemanticSignature < ActiveRecord::Base
+end
+
 
 
 class SemanticHacker
