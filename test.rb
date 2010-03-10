@@ -14,18 +14,18 @@ sh = SemanticHacker.new("3ucknpc", :uri, ARGV[0])
 
 puts "Signatures"
 sh.get_signatures.each do |s|
-  puts "\t=> " + SemanticSignature.find(s[:index]).category
+  puts "\t=> " + "[#{s[:weight]}] " + SemanticSignature.find(s[:index]).category
 end
 
 puts "Concepts"
 sh.get_concepts.each do |s|
-  puts "\t=> " + s[:label]
+  puts "\t=> " + "[#{s[:weight]}] " + s[:label]
 end
 
 
 puts "Categories"
 sh.get_categories.each do |s|
-  puts "\t=> " + s[:label]
+  puts "\t=> " + "[#{s[:weight]}] " + s[:label]
 end
 
 
