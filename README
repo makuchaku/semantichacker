@@ -1,7 +1,11 @@
-# Copied from http://hamishrickerby.com/2009/02/26/dealing-with-semantichacker-in-ruby/
+A really simple Ruby wrapper for Semantic Hacker API (http://semantichacker.com)
 
-sh = SemanticHacker.new("mysecrettoken")
-sh.get_signature("Wow!  Some semantic analysis on my text")
-puts sh.signatures.inspect
-#returns an array of hashes with the weights and indexes of the categories
+Code originally taken from http://hamishrickerby.com/2009/02/26/dealing-with-semantichacker-in-ruby/ and modified to add support for URI's, nicer abstraction, etc.
 
+See test.rb for example usage.
+
+Feel free to fork the repository :)
+
+--
+Maku
+http://makuchaku.in
