@@ -3,45 +3,53 @@ require 'hpricot'
 require 'cgi'
 require 'open-uri'
 
+
 class SemanticHacker
-
   URL = "http://api.semantichacker.com"
-  attr_accessor :token, :doc, :content
+  attr_accessor :token, :doc, :content, :content_type, :content
+  attr_reader :api_call
 
-  def initialize(token)
+  def initialize(token, content_type, content)
     @token = token
+    @content_type = content_type   # uri or content
+    @content = sanitize(content)
   end
 
-  def get_signature(content)
-    @content = ::CGI::escape(content)
-    url = "#{URL}/#{@token}/signature?content=#{@content}"
-    @doc = Hpricot.XML(open(url))
+  def get_signatures
+    @api_call = "#{URL}/#{@token}/signature?#{@content_type}=#{@content}"
+    @doc = Hpricot.XML(open(@api_call))
+    signatures
   end
 
-  def get_concepts(content)
-    @content = ::CGI::escape(content)
-    url = "#{URL}/#{@token}/concept?content=#{@content}"
-    @doc = Hpricot.XML(open(url))
+  def get_concepts
+    @api_call = "#{URL}/#{@token}/concept?#{@content_type}=#{@content}"
+    @doc = Hpricot.XML(open(@api_call))
+    concepts
   end
 
-  def get_categories(content)
-    @content = ::CGI::escape(content)
-    url = "#{URL}/#{@token}/category?content=#{@content}"
-    @doc = Hpricot.XML(open(url))
+  def get_categories
+    @api_call = "#{URL}/#{@token}/category?#{@content_type}=#{@content}&showLabels=true"
+    @doc = Hpricot.XML(open(@api_call))
+    categories
   end
+
+
+  private
 
   def type
     (doc/:response/:about/:systemType).inner_html
   end
 
+
   def config_id
     (doc/:response/:about/:configId).inner_html
   end
 
+
   def categories
     response = []
     (doc/:response/:categorizer/:categorizerResponse/:categories/:category).each do |item|
-      response << {:id => item.attributes['id'], :weight => item.attributes['weight']}
+      response << {:label => item.attributes['label'], :weight => item.attributes['weight']}
     end
     response
   end
@@ -61,6 +69,14 @@ class SemanticHacker
     end
     response
   end
-
+  
+  def sanitize(content)
+    if @content_type == :uri
+      return content
+    else
+      return ::CGI::escape(content)
+    end
+  end
+  
 end
 
