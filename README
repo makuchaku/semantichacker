@@ -1,0 +1,7 @@
+# Copied from http://hamishrickerby.com/2009/02/26/dealing-with-semantichacker-in-ruby/
+
+sh = SemanticHacker.new("mysecrettoken")
+sh.get_signature("Wow!  Some semantic analysis on my text")
+puts sh.signatures.inspect
+#returns an array of hashes with the weights and indexes of the categories
+
