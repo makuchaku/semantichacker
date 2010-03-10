@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
+require "pp"
 require "semantic_hacker"
 
 sh = SemanticHacker.new("YOUR_API_KEY", :uri, "http://microsoft.com")
