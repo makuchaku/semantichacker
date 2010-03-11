@@ -7,7 +7,7 @@ require 'active_record'
 
 ActiveRecord::Base.establish_connection( 
   :adapter  => 'sqlite3',
-  :database => 'db/signatures.sqlite',
+  :database => File.join(File.dirname(__FILE__), 'db/signatures.sqlite'),
   :pool     => 5,
   :timeout  => 5000
 )
