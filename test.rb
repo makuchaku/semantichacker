@@ -1,16 +1,14 @@
 #!/usr/bin/env ruby
 
-require "pp"
 require "semantic_hacker"
-require "db/migration_01"
 
 if not ARGV[0]
   puts "To run test cases..."
   puts "\truby test.rb 'http://makuchaku.in'"
-  exit
+  ARGV[0] = "http://makuchaku.in"
 end
 
-sh = SemanticHacker.new("gcyw3wa1").query_for(:uri, ARGV[0])
+sh = SemanticHacker.new("YOUR_API_KEY").query_for(:uri, ARGV[0])
 
 puts "Signatures"
 sh.get_signatures.each do |s|

@@ -2,29 +2,17 @@ require 'rubygems'
 require 'hpricot'
 require 'cgi'
 require 'open-uri'
-require 'active_record'
-
-
-ActiveRecord::Base.establish_connection( 
-  :adapter  => 'sqlite3',
-  :database => File.join(File.dirname(__FILE__), 'db/signatures.sqlite'),
-  :pool     => 5,
-  :timeout  => 5000
-)
-
-# Dummy class to access Signatures DB
-class SemanticSignature < ActiveRecord::Base
-end
-
 
 
 class SemanticHacker
+
   URL = "http://api.semantichacker.com"
   attr_accessor :token, :doc, :content, :content_type, :content
   attr_reader :api_call
 
   def initialize(token)
     @token = token
+    @signatures = YAML::load(File.open(File.join(File.dirname(__FILE__), 'db/signatures.yml')).read)
   end
 
   def query_for(content_type, content)
@@ -83,7 +71,7 @@ class SemanticHacker
   def signatures
     response = []
     (doc/:response/:siggen/:siggenResponse/:signature/:dimension).each do |item|
-      response << {:index => item.attributes['index'], :weight => item.attributes['weight'], :label => SemanticSignature.find(item.attributes['index']).category}
+      response << {:index => item.attributes['index'], :weight => item.attributes['weight'], :label => @signatures[item.attributes['index']]}
     end
     response
   end
