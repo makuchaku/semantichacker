@@ -23,10 +23,14 @@ class SemanticHacker
   attr_accessor :token, :doc, :content, :content_type, :content
   attr_reader :api_call
 
-  def initialize(token, content_type, content)
+  def initialize(token)
     @token = token
+  end
+
+  def query_for(content_type, content)
     @content_type = content_type   # uri or content
     @content = sanitize(content)
+    self
   end
 
   def get_signatures
