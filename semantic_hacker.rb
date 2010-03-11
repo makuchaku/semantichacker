@@ -83,7 +83,7 @@ class SemanticHacker
   def signatures
     response = []
     (doc/:response/:siggen/:siggenResponse/:signature/:dimension).each do |item|
-      response << {:index => item.attributes['index'], :weight => item.attributes['weight']}
+      response << {:index => item.attributes['index'], :weight => item.attributes['weight'], :label => SemanticSignature.find(item.attributes['index']).category}
     end
     response
   end

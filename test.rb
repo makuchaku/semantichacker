@@ -14,7 +14,7 @@ sh = SemanticHacker.new("YOUR_API_KEY").query_for(:uri, ARGV[0])
 
 puts "Signatures"
 sh.get_signatures.each do |s|
-  puts "\t=> " + "[#{s[:weight]}] " + SemanticSignature.find(s[:index]).category
+  puts "\t=> " + "[#{s[:weight]}] " + s[:label]
 end
 
 puts "Concepts"
